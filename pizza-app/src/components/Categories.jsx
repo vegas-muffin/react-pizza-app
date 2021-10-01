@@ -1,25 +1,36 @@
-import React from 'react'
+import React from 'react';
 
-function Categories({items, onClickItem}) {
+// на функции
+const Categories = React.memo(function Categories({ items, onClickItem }) {
   const [activeItem, setActiveItem] = React.useState(null);
+
   const onSelectItem = (index) => {
     setActiveItem(index);
-  }
+    onClickItem(index);
+  };
 
   return (
     <div className="categories">
       <ul>
-        <li className={activeItem === null ? 'active' : ''} onClick={() => onSelectItem(null)}>Все</li>
-        {items.map((item,index) => {
-          return <li 
-          className = {activeItem === index ? 'active' : ''} 
-          onClick={() => onSelectItem(index)} key={`${item}_${index}`}>{item}</li>;
+        <li className={activeItem === null ? 'active' : ''} onClick={() => onSelectItem(null)}>
+          Все
+        </li>
+        {items.map((item, index) => {
+          return (
+            <li
+              className={activeItem === index ? 'active' : ''}
+              onClick={() => onSelectItem(index)}
+              key={`${item}_${index}`}>
+              {item}
+            </li>
+          );
         })}
       </ul>
     </div>
-  )
-}
+  );
+});
 
+// На классах
 // class Categories extends React.Component {
 //   state = {
 //     activeItem: null,
@@ -44,4 +55,4 @@ function Categories({items, onClickItem}) {
 //   }
 // }
 
-export default Categories
+export default Categories;
