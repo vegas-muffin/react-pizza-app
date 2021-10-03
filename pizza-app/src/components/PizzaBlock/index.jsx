@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+export { default as PizzaLoadingBlock } from './LoadingBlock';
 
 function PizzaBlock({ name, imageUrl, types, sizes, price }) {
   const avalibleTypes = ['тонкое', 'традиционное'];
@@ -16,6 +17,10 @@ function PizzaBlock({ name, imageUrl, types, sizes, price }) {
   const onSelectSize = (size) => {
     setActiveSize(size);
   };
+
+  // if (isLoading) {
+  //   return <LoadingBlock />;
+  // }
 
   return (
     <div className="pizza-block">
