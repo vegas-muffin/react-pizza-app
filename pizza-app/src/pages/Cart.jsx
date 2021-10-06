@@ -23,7 +23,7 @@ function Cart() {
 
   const onRemoveItem = (id) => {
     if (window.confirm('Вы действительно хотите удалить?')) {
-      dispatch(removeCartItem());
+      dispatch(removeCartItem(id));
     }
   };
   return (
@@ -124,6 +124,7 @@ function Cart() {
         <div className="content__items">
           {addedPizzas.map((obj) => (
             <CartItem
+              id={obj.id}
               urlImage={obj.imageUrl}
               name={obj.name}
               type={obj.type}
