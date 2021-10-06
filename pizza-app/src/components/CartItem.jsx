@@ -1,14 +1,13 @@
 import React from 'react';
 
-function CartItem({ name, type, size, totalPrice }) {
+function CartItem({ urlImage, name, type, size, totalPrice, totalCount, onRemove }) {
+  const handleRemoveClick = () => {
+    onRemove(id);
+  };
   return (
     <div className="cart__item">
       <div className="cart__item-img">
-        <img
-          className="pizza-block__image"
-          src="https://dodopizza-a.akamaihd.net/static/Img/Products/Pizza/ru-RU/b750f576-4a83-48e6-a283-5a8efb68c35d.jpg"
-          alt="Pizza"
-        />
+        <img className="pizza-block__image" src={urlImage} alt="Pizza" />
       </div>
       <div className="cart__item-info">
         <h3>{name}</h3>
@@ -34,7 +33,7 @@ function CartItem({ name, type, size, totalPrice }) {
             />
           </svg>
         </div>
-        <b>2</b>
+        <b>{totalCount}</b>
         <div className="button button--outline button--circle cart__item-count-plus">
           <svg
             width="10"
@@ -57,7 +56,7 @@ function CartItem({ name, type, size, totalPrice }) {
         <b>{totalPrice} ₽</b>
       </div>
       <div className="cart__item-remove">
-        <div className="button button--outline button--circle">
+        <div onClick={onRemove} className="button button--outline button--circle">
           <svg
             width="10"
             height="10"
