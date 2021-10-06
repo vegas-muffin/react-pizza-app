@@ -3,8 +3,8 @@ import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-import { CartItem } from '../components';
-import { clearCart, removeCartItem } from '../redux/actions/cart';
+import { CartItem, Button } from '../components';
+import { clearCart, removeCartItem, plusItem, minusItem } from '../redux/actions/cart';
 import cartEmptyImg from '../assets/img/empty-cart.png';
 
 function Cart() {
@@ -26,6 +26,19 @@ function Cart() {
       dispatch(removeCartItem(id));
     }
   };
+
+  const onPlusItem = (id) => {
+    dispatch(plusItem(id));
+  };
+
+  const onMinusItem = (id) => {
+    dispatch(minusItem(id));
+  };
+
+  const onClickOrder = () => {
+    console.log('Ваш заказ!', items);
+  };
+
   return (
     <div className="container container--cart">
       <div className="cart">
@@ -105,7 +118,7 @@ function Cart() {
         ) : (
           <div className="cart cart--empty">
             <h2>
-              Корзина пустая <icon>😕</icon>
+              Корзина пустая <b>😕</b>
             </h2>
             <p>
               Вероятней всего, вы не заказывали ещё пиццу.
@@ -113,17 +126,18 @@ function Cart() {
               Для того, чтобы заказать пиццу, перейди на главную страницу.
             </p>
             <img src={cartEmptyImg} alt="Empty cart" />
-            <a href="/" className="button button--black">
+            <Button className="button--black">
               <Link to="/">
                 <span>Вернуться назад</span>{' '}
               </Link>
-            </a>
+            </Button>
           </div>
         )}
 
         <div className="content__items">
           {addedPizzas.map((obj) => (
             <CartItem
+              key={obj.name + obj.id}
               id={obj.id}
               urlImage={obj.imageUrl}
               name={obj.name}
@@ -132,6 +146,8 @@ function Cart() {
               totalPrice={items[obj.id].totalPrice}
               totalCount={items[obj.id].items.length}
               onRemove={onRemoveItem}
+              onPlus={onPlusItem}
+              onMinus={onMinusItem}
             />
           ))}
         </div>
@@ -147,7 +163,7 @@ function Cart() {
             </span>
           </div>
           <div className="cart__bottom-buttons">
-            <a href="/" className="button button--outline button--add go-back-btn">
+            <Button className="button--add go-back-btn" outline>
               <svg
                 width="8"
                 height="14"
@@ -166,10 +182,10 @@ function Cart() {
               <Link to="/">
                 <span>Вернуться назад</span>{' '}
               </Link>
-            </a>
-            <div className="button pay-btn">
+            </Button>
+            <Button onClick={onClickOrder} className="pay-btn">
               <span>Оплатить сейчас</span>
-            </div>
+            </Button>
           </div>
         </div>
       </div>
